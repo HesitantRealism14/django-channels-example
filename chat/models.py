@@ -1,6 +1,10 @@
-from django.contrib.auth.models import User
 from django.db import models
 
+class User(models.Model):
+    username = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.username
 
 class Room(models.Model):
     name = models.CharField(max_length=128)
@@ -19,7 +23,6 @@ class Room(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.get_online_count()})'
-
 
 class Message(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)

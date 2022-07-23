@@ -1,6 +1,7 @@
 console.log("Sanity check from room.js.");
 
 const roomName = JSON.parse(document.getElementById('roomName').textContent);
+const userName = JSON.parse(document.getElementById('userName').textContent);
 
 let chatLog = document.querySelector("#chatLog");
 let chatMessageInput = document.querySelector("#chatMessageInput");
@@ -36,6 +37,7 @@ chatMessageInput.onkeyup = function(e) {
 chatMessageSend.onclick = function() {
     if (chatMessageInput.value.length === 0) return;
     chatSocket.send(JSON.stringify({
+        "user": userName,
         "message": chatMessageInput.value,
     }));
     chatMessageInput.value = "";
@@ -44,7 +46,7 @@ chatMessageSend.onclick = function() {
 let chatSocket = null;
 
 function connect() {
-    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + "/");
+    chatSocket = new WebSocket("ws://" + window.location.host + "/ws/chat/" + roomName + "/" + userName + "/");
 
     chatSocket.onopen = function(e) {
         console.log("Successfully connected to the WebSocket.");
@@ -79,12 +81,12 @@ function connect() {
                 chatLog.value += data.user + " left the room.\n";
                 onlineUsersSelectorRemove(data.user);
                 break;
-            case "private_message":
-                chatLog.value += "PM from " + data.user + ": " + data.message + "\n";
-                break;
-            case "private_message_delivered":
-                chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
-                break;
+            // case "private_message":
+            //     chatLog.value += "PM from " + data.user + ": " + data.message + "\n";
+            //     break;
+            // case "private_message_delivered":
+            //     chatLog.value += "PM to " + data.target + ": " + data.message + "\n";
+            //     break;
             default:
                 console.error("Unknown message type!");
                 break;
@@ -102,8 +104,8 @@ function connect() {
 }
 connect();
 
-onlineUsersSelector.onchange = function() {
-    chatMessageInput.value = "/pm " + onlineUsersSelector.value + " ";
-    onlineUsersSelector.value = null;
-    chatMessageInput.focus();
-};
+// onlineUsersSelector.onchange = function() {
+//     chatMessageInput.value = "/pm " + onlineUsersSelector.value + " ";
+//     onlineUsersSelector.value = null;
+//     chatMessageInput.focus();
+// };

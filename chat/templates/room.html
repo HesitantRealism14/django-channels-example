@@ -24,11 +24,11 @@
             <div class="row">
                 <div class="col-12 col-md-8">
                     <div class="mb-2">
-                        <label for="chatLog">Room: #{{ room.name }}</label>
+                        <label for="chatLog">Room: #{{ room.name }} User: {{ user.username }}</label>
                         <textarea class="form-control" id="chatLog" readonly></textarea>
                     </div>
                     <div class="input-group">
-                        <input type="text" class="form-control" id="chatMessageInput" placeholder="Enter your chat message">
+                        <input type="text" class="form-control" id="chatMessageInput" placeholder="Hi enter your chat message">
                         <div class="input-group-append">
                             <button class="btn btn-success" id="chatMessageSend" type="button">Send</button>
                         </div>
@@ -41,6 +41,7 @@
                 </div>
             </div>
             {{ room.name|json_script:"roomName" }}
+            {{ user.username|json_script:"userName" }}
         </div>
         <script src="{% static 'room.js' %}"></script>
     </body>

@@ -21,6 +21,9 @@
                         <label for="roomInput">Enter a room name to connect to it:</label>
                         <input type="text" class="form-control" id="roomInput" placeholder="Room name">
                         <small id="roomInputHelp" class="form-text text-muted">If the room doesn't exist yet, it will be created for you.</small>
+                        <br></br>
+                        <label for="nameInput">Enter your name for the chatroom:</label>
+                        <input type="text" class="form-control" id="nameInput" placeholder="User name">
                     </div>
                     <button type="button" id="roomConnect" class="btn btn-success">Connect</button>
                 </div>
@@ -34,6 +37,7 @@
                 </div>
             </div>
         </div>
+
         <script src="{% static 'index.js' %}"></script>
     </body>
 </html>
